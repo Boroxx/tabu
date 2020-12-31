@@ -1,0 +1,50 @@
+body{
+    background-color: #5c5d8d;
+}
+.heading{
+    background-color: #654F6F;
+    color:white;
+    border-radius: 0 0 5px 5px;
+
+
+}
+
+.timer{
+    font-size: xx-large;
+    color: white;
+    padding:1rem 0 0 1rem;
+}
+
+
+.reset_button{
+    background-color: #B5B6CF;;
+}
+
+.tabuword{
+    color:#B5B6CF;
+    margin: 1rem;
+    padding: 2rem;
+    background-color:#383956 ;
+}
+
+.controll{
+    padding-top:2rem;
+}
+
+.next, .wrong {
+    color: #B5B6CF;
+}
+
+.playerscore{
+
+    position:absolute;
+    bottom: 6rem;
+    margin: 2rem;
+}
+.reset_button{
+    position:absolute;
+    background-color: #B5B6CF;
+    margin:2rem;
+    bottom: 0;
+}
+

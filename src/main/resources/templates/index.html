@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="de" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="description" content=""/>
+    <meta name="author" content=""/>
+    <meta name="viewport"
+          content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width"/>
+    <title></title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="/index.css">
+    <link rel="stylesheet" href="/all.css">
+
+
+</head>
+<body>
+<div class="heading text-center">
+    <h1>Tabu</h1>
+</div>
+
+<div class="d-flex flex-row justify-content-center">
+    <button class=" d-flex btn reset_button" onclick="resetTimer()" >Reset</button>
+
+</div>
+<div class="timer text-center">
+    <span onclick="starTimer()" >Timer: <span id="time">40</span></span>
+</div>
+
+<div class="tabuword card cardbody text-center">
+
+    <h3 id="word1"></h3>
+    <h5 id="word2"></h5>
+    <h5 id="word3"></h5>
+    <h5 id="word4"></h5>
+    <h5 id="word5"></h5>
+
+    <div class="controll d-flex justify-content-between">
+
+        <span class="next" onclick="weiter()"  ><i class="fas fa-4x fa-arrow-circle-right"></i></span>
+        <span class="wrong" onclick="fehler()"><i class="fas fa-4x  fa-times-circle"></i> </span>
+    </div>
+
+</div>
+
+<div class="playerscore">
+    <h2 id="team1">Team 1: <span id="score1">0</span></h2>
+    <h2 id="team2">Team 2: <span id="score2">0</span></h2>
+</div>
+
+
+<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+</body>
+
+<script th:inline="javascript">
+    /*<![CDATA[*/
+
+    var player_score_one = 0;
+    var player_score_two = 0;
+
+    var player1active = true;
+    var player1 = document.getElementById("team1");
+    var score1 = document.getElementById("score1");
+
+
+    var player2active =false;
+    var player2 = document.getElementById("team2");
+    var score2 = document.getElementById("score2");
+
+    var tabuwordlist = /*[[${tabuwords}]]*/ 'default';
+
+    console.log(tabuwordlist[0].dontuse[0]);
+
+    var counter = 0;
+    var word1 = document.getElementById("word1");
+    var word2 = document.getElementById("word2");
+    var word3 = document.getElementById("word3");
+    var word4 = document.getElementById("word4");
+    var word5 = document.getElementById("word5");
+
+
+    var started =false;
+
+
+
+
+    function starTimer(){
+        var seconds = document.getElementById('time').innerHTML;
+        var secondscopy = seconds;
+        start();
+
+        if(started===false){
+            started= true;
+            var countdownTimer = setInterval( function(){
+                document.getElementById('time').innerHTML = seconds;
+
+                if(seconds===0){
+                    clearInterval(countdownTimer);
+                    started=false;
+                    if(player1active){
+                        player1active=false;
+                        player2active=true;
+                    } else if (player2active){
+                        player1active=true;
+                        player2active=false;
+                    }
+                    document.getElementById('time').innerHTML = "Zeit Vorbei!";
+                    document.getElementById('time').innerHTML = secondscopy;
+
+                }else{
+                    seconds--;
+                }
+            },1000);
+        }
+
+    }
+
+    function start(){
+            if(player1active){
+                player1.style.color="#D1E0CC";
+                player2.style.color="#B5B6CF"
+
+            }
+            if(player2active){
+                player1.style.color="#B5B6CF";
+                player2.style.color="#D1E0CC";
+
+            }
+            word1.innerText = tabuwordlist[counter].dontuse[0];
+            word2.innerText = tabuwordlist[counter].dontuse[1];
+            word3.innerText = tabuwordlist[counter].dontuse[2];
+            word4.innerText = tabuwordlist[counter].dontuse[3];
+            word5.innerText = tabuwordlist[counter].dontuse[4];
+    }
+
+    function weiter(){
+        counter++;
+        if(player1active){
+            player_score_one++;
+            score1.innerText=player_score_one;
+
+        }
+        if(player2active){
+            player_score_two++;
+            score2.innerText=player_score_two;
+
+        }
+        word1.innerText = tabuwordlist[counter].dontuse[0];
+        word2.innerText = tabuwordlist[counter].dontuse[1];
+        word3.innerText = tabuwordlist[counter].dontuse[2];
+        word4.innerText = tabuwordlist[counter].dontuse[3];
+        word5.innerText = tabuwordlist[counter].dontuse[4];
+    }
+
+    function fehler() {
+        counter++;
+        if(player1active){
+            player_score_one--;
+            score1.innerText=player_score_one;
+
+        }
+        if(player2active){
+            player_score_two--;
+            score2.innerText=player_score_two;
+
+        }
+        word1.innerText = tabuwordlist[counter].dontuse[0];
+        word2.innerText = tabuwordlist[counter].dontuse[1];
+        word3.innerText = tabuwordlist[counter].dontuse[2];
+        word4.innerText = tabuwordlist[counter].dontuse[3];
+        word5.innerText = tabuwordlist[counter].dontuse[4];
+
+    }
+
+
+    function resetTimer(){
+        document.getElementById('time').innerHTML = 90;
+    }
+
+    /*]]>*/
+</script>
+</html>
