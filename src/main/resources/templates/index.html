@@ -54,7 +54,10 @@
 
 <script th:inline="javascript">
     /*<![CDATA[*/
-
+    var dummsound = new Audio('dumm.mp3');
+    function playdumm(){
+        dummsound.play();
+    }
     var player_score_one = 0;
     var player_score_two = 0;
 
@@ -153,6 +156,7 @@
     }
 
     function fehler() {
+        playdumm();
         counter++;
         if(player1active){
             player_score_one--;
